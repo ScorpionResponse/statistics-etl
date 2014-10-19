@@ -5,19 +5,28 @@ $script = <<SCRIPT
 apt-get update
 
 # Install Ansible
-apt-get install -y software-properties-common
-apt-add-repository -y ppa:ansible/ansible
-apt-get update
-apt-get install -y ansible
+if [ ! -x "$(which ansible)" ]; then
+  apt-get install -y software-properties-common
+  apt-add-repository -y ppa:ansible/ansible
+  apt-get update
+  apt-get install -y ansible
+fi
 
 # Install Git
-apt-get install -y git
+if [ ! -x "$(which git)" ]; then
+  apt-get install -y git
+fi
 
-# Checkout the repo
-sudo -i -u vagrant git clone https://github.com/ScorpionResponse/statistics-etl.git statistics-etl
+# Checkout or update the repo
+if [ ! -d statistics-etl ]; then
+  sudo -i -u vagrant git clone https://github.com/ScorpionResponse/statistics-etl.git statistics-etl
+  cd statistics-etl
+else
+  cd statistics-etl
+  sudo -i -u vagrant git pull
+fi
 
 # Run the ansible playbook
-cd statistics-etl
 ansible-playbook ansible/site.yml -i ansible/hosts --connection=local
 SCRIPT
 
