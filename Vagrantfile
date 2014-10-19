@@ -21,7 +21,7 @@ fi
 if [ ! -d statistics-etl ]; then
   sudo -i -u vagrant git clone https://github.com/ScorpionResponse/statistics-etl.git statistics-etl
 else
-  sudo -i -u vagrant cd statistics-etl && git pull
+  sudo -i -u vagrant sh -c "cd statistics-etl && git pull"
 fi
 
 # Run the ansible playbook
