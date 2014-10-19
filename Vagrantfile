@@ -23,6 +23,8 @@ if [ ! -d statistics-etl ]; then
   cd statistics-etl
 else
   cd statistics-etl
+  pwd
+  ls -l
   sudo -i -u vagrant git pull
 fi
 
