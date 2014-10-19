@@ -20,15 +20,12 @@ fi
 # Checkout or update the repo
 if [ ! -d statistics-etl ]; then
   sudo -i -u vagrant git clone https://github.com/ScorpionResponse/statistics-etl.git statistics-etl
-  cd statistics-etl
 else
-  cd statistics-etl
-  pwd
-  ls -l
-  sudo -i -u vagrant git pull
+  sudo -i -u vagrant cd statistics-etl && git pull
 fi
 
 # Run the ansible playbook
+cd statistics-etl
 ansible-playbook ansible/site.yml -i ansible/hosts --connection=local
 SCRIPT
 
